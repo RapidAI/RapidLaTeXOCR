@@ -1,0 +1,6 @@
+onnxruntime
+tokenizers>=0.13.2
+numpy
+opencv-python
+Pillow>=9.2.0
+PyYAML
