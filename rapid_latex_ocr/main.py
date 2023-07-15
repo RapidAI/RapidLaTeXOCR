@@ -3,6 +3,8 @@
 # @Contact: liekkaskono@163.com
 import argparse
 import re
+import time
+import traceback
 from pathlib import Path
 from typing import Tuple, Union
 
@@ -12,7 +14,7 @@ from PIL import Image
 
 from .models import EncoderDecoder
 from .utils import PreProcess, TokenizerCls
-from .utils_load import InputType, LoadImage, OrtInferSession
+from .utils_load import InputType, LoadImage, LoadImageError, OrtInferSession
 
 cur_dir = Path(__file__).resolve().parent
 DEFAULT_CONFIG = cur_dir / "config.yaml"
@@ -48,13 +50,34 @@ class LatexOCR:
         )
         self.tokenizer = TokenizerCls(TOKENIZER_JSON)
 
-    def __call__(self, img: InputType) -> str:
-        img = self.load_img(img)
-        resizered_img = self.loop_image_resizer(img)
-        dec = self.encoder_decoder(resizered_img, temperature=self.temperature)
+    def __call__(self, img: InputType) -> Tuple[str, float]:
+        s = time.perf_counter()
+
+        try:
+            img = self.load_img(img)
+        except LoadImageError:
+            error_info = traceback.format_exc()
+            raise LoadImageError(
+                f"Load the img meets error. Error info is {error_info}"
+            )
+
+        try:
+            resizered_img = self.loop_image_resizer(img)
+        except Exception:
+            error_info = traceback.format_exc()
+            raise ValueError(f"image resizer meets error. Error info is {error_info}")
+
+        try:
+            dec = self.encoder_decoder(resizered_img, temperature=self.temperature)
+        except Exception:
+            error_info = traceback.format_exc()
+            raise ValueError(f"EncoderDecoder meets error. Error info is {error_info}")
+
         decode = self.tokenizer.token2str(dec)
         pred = self.post_process(decode[0])
-        return pred
+
+        elapse = time.perf_counter() - s
+        return pred, elapse
 
     def loop_image_resizer(self, img: np.ndarray) -> np.ndarray:
         pillow_img = Image.fromarray(img)
@@ -65,7 +88,8 @@ class LatexOCR:
             h = int(h * r)
             final_img, pad_img = self.pre_process(input_image, r, w, h)
 
-            resizer_res = self.image_resizer([final_img])[0]
+            resizer_res = self.image_resizer([final_img.astype(np.float32)])[0]
+
             argmax_idx = int(np.argmax(resizer_res, axis=-1))
             w = (argmax_idx + 1) * 32
             if w == pad_img.size[0]:
@@ -103,7 +127,7 @@ class LatexOCR:
         """
         text_reg = r"(\\(operatorname|mathrm|text|mathbf)\s?\*? {.*?})"
         letter = "[a-zA-Z]"
-        noletter = "[\W_^\d]"
+        noletter = r"[\W_^\d]"
         names = [x[0].replace(" ", "") for x in re.findall(text_reg, s)]
         s = re.sub(text_reg, lambda match: str(names.pop(0)), s)
         news = s

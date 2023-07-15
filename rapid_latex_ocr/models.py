@@ -63,7 +63,7 @@ class Decoder:
             x = out[:, -self.max_seq_len :]
             mask = mask[:, -self.max_seq_len :]
 
-            ort_outs = self.session([x, mask, context])[0]
+            ort_outs = self.session([x.astype(np.int64), mask, context])[0]
             np_preds = ort_outs
             np_logits = np_preds[:, -1, :]
 

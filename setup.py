@@ -58,7 +58,7 @@ setuptools.setup(
     include_package_data=True,
     install_requires=read_txt("requirements.txt"),
     packages=[MODULE_NAME, f"{MODULE_NAME}.models"],
-    package_data={"": ["*.yaml", ".onnx", ".json"]},
+    package_data={"": ["*.yaml", "*.onnx", "*.json"]},
     keywords=["ocr, image to text, latex"],
     classifiers=[
         "Programming Language :: Python :: 3.6",

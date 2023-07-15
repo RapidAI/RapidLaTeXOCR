@@ -9,6 +9,7 @@ root_dir = cur_dir.parent
 
 sys.path.append(str(root_dir))
 import pytest
+
 from rapid_latex_ocr import LatexOCR
 
 model = LatexOCR()
@@ -30,7 +31,6 @@ img_dir = cur_dir / "test_files"
 )
 def test(img_path, gt):
     img_path = img_dir / img_path
-    # img = Image.open(str(img_path))
-    res = model(img_path)
-    print(res)
+    res, _ = model(img_path)
+
     assert res == gt
