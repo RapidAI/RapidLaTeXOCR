@@ -7,7 +7,7 @@ on:
       - 'rapid_latex_ocr/**'
       - 'docs/doc_whl.md'
       - 'setup.py'
-      - '.github/workflows/gen_whl_to_pypi_rapidocr_pdf.yml'
+      - '.github/workflows/gen_whl_to_pypi.yml'
 
 env:
   RESOURCES_URL: https://github.com/RapidAI/RapidLatexOCR/releases/download/v0.0.0/models.zip
