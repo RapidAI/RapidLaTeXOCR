@@ -57,8 +57,8 @@ setuptools.setup(
     license="Apache-2.0",
     include_package_data=True,
     install_requires=read_txt("requirements.txt"),
-    packages=[MODULE_NAME, f"{MODULE_NAME}.models"],
-    package_data={"": ["*.yaml", "*.onnx", "*.json"]},
+    packages=[MODULE_NAME],
+    package_data={"": ["*.yaml"]},
     keywords=["ocr, image to text, latex"],
     classifiers=[
         "Programming Language :: Python :: 3.6",

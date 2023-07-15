@@ -12,7 +12,16 @@ import pytest
 
 from rapid_latex_ocr import LatexOCR
 
-model = LatexOCR()
+image_resizer_path = "models/image_resizer.onnx"
+encoder_path = "models/encoder.onnx"
+decoder_path = "models/decoder.onnx"
+tokenizer_json = "models/tokenizer.json"
+model = LatexOCR(
+    image_resizer_path=image_resizer_path,
+    encoder_path=encoder_path,
+    decoder_path=decoder_path,
+    tokenizer_json=tokenizer_json,
+)
 
 img_dir = cur_dir / "test_files"
 

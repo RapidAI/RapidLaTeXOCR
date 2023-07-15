@@ -19,15 +19,28 @@ from .utils_load import InputType, LoadImage, LoadImageError, OrtInferSession
 cur_dir = Path(__file__).resolve().parent
 DEFAULT_CONFIG = cur_dir / "config.yaml"
 
-model_dir = cur_dir / "models"
-IMAGE_RESIZER_PATH = model_dir / "image_resizer.onnx"
-ENCODER_PATH = model_dir / "encoder.onnx"
-DECODER_PATH = model_dir / "decoder.onnx"
-TOKENIZER_JSON = model_dir / "tokenizer.json"
-
 
 class LatexOCR:
-    def __init__(self, config_path: Union[str, Path] = DEFAULT_CONFIG):
+    def __init__(
+        self,
+        config_path: Union[str, Path] = DEFAULT_CONFIG,
+        image_resizer_path: Union[str, Path] = None,
+        encoder_path: Union[str, Path] = None,
+        decoder_path: Union[str, Path] = None,
+        tokenizer_json: Union[str, Path] = None,
+    ):
+        if image_resizer_path is None:
+            raise FileNotFoundError("image_resizer_path must not be None.")
+
+        if encoder_path is None:
+            raise FileNotFoundError("encoder_path must not be None.")
+
+        if decoder_path is None:
+            raise FileNotFoundError("decoder_path must not be None.")
+
+        if tokenizer_json is None:
+            raise FileNotFoundError("tokenizer_json must not be None.")
+
         with open(config_path, "r") as f:
             args = yaml.load(f, Loader=yaml.FullLoader)
 
@@ -39,16 +52,16 @@ class LatexOCR:
 
         self.pre_pro = PreProcess(max_dims=self.max_dims, min_dims=self.min_dims)
 
-        self.image_resizer = OrtInferSession(IMAGE_RESIZER_PATH)
+        self.image_resizer = OrtInferSession(image_resizer_path)
 
         self.encoder_decoder = EncoderDecoder(
-            encoder_path=ENCODER_PATH,
-            decoder_path=DECODER_PATH,
+            encoder_path=encoder_path,
+            decoder_path=decoder_path,
             bos_token=args["bos_token"],
             eos_token=args["eos_token"],
             max_seq_len=args["max_seq_len"],
         )
-        self.tokenizer = TokenizerCls(TOKENIZER_JSON)
+        self.tokenizer = TokenizerCls(tokenizer_json)
 
     def __call__(self, img: InputType) -> Tuple[str, float]:
         s = time.perf_counter()
@@ -143,10 +156,20 @@ class LatexOCR:
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument("-img_resizer", "--image_resizer_path", type=str, default=None)
+    parser.add_argument("-encdoer", "--encoder_path", type=str, default=None)
+    parser.add_argument("-decoder", "--decoder_path", type=str, default=None)
+    parser.add_argument("-tokenizer", "--tokenizer_json", type=str, default=None)
     parser.add_argument("img_path", type=str, help="Only img path of the formula.")
     args = parser.parse_args()
 
-    engine = LatexOCR()
+    engine = LatexOCR(
+        image_resizer_path=args.image_resizer_path,
+        encoder_path=args.encoder_path,
+        decoder_path=args.decoder_path,
+        tokenizer_json=args.tokenizer_json,
+    )
+
     result = engine(args.img_path)
     print(result)
 
