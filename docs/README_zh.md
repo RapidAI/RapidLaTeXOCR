@@ -14,7 +14,7 @@
 
 
 - `rapid_latex_ocr`是一个将公式图像转为latex格式的工具。
-- **仓库中的推理代码来自修改自[LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR)，模型已经全部转为ONNX格式，并对推理代码做了精简，推理速度更快，更容易部署。**
+- **仓库中的推理代码改自[LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR)，模型已经全部转为ONNX格式，并对推理代码做了精简，推理速度更快，更容易部署。**
 - 仓库只有基于`ONNXRuntime`或者`OpenVINO`推理onnx格式的代码，不包含训练模型代码。如果想要训练自己的模型，请移步[LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR)。
 - 如果有帮助到您的话，请给个小星星⭐或者赞助一杯咖啡（点击页面最上面的Sponsor中链接）
 - 欢迎各位小伙伴积极贡献，让这个工具更好。
