@@ -22,6 +22,7 @@
 
 ### TODO
 - [ ] Rewrite LaTeX-OCR GUI version based on `rapid_latex_ocr`
+- [ ] Add demo in the hugging face
 - [ ] Integrate other better models
 
 ### Use
