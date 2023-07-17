@@ -19,6 +19,7 @@
 - The repo only has codes based on `ONNXRuntime` or `OpenVINO` inference in onnx format, and does not contain training model codes. If you want to train your own model, please move to [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR).
 - If it helps you, please give a little star ⭐ or sponsor a cup of coffee (click the link in Sponsor at the top of the page)
 - Welcome all friends to actively contribute to make this tool better.
+- ☆ [Model Conversion Notes](https://github.com/RapidAI/RapidLatexOCR/wiki/Model-Conversion-Notes)
 
 ### TODO
 - [ ] Rewrite LaTeX-OCR GUI version based on `rapid_latex_ocr`

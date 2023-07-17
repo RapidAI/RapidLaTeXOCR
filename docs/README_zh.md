@@ -18,9 +18,11 @@
 - 仓库只有基于`ONNXRuntime`或者`OpenVINO`推理onnx格式的代码，不包含训练模型代码。如果想要训练自己的模型，请移步[LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR)。
 - 如果有帮助到您的话，请给个小星星⭐或者赞助一杯咖啡（点击页面最上面的Sponsor中链接）
 - 欢迎各位小伙伴积极贡献，让这个工具更好。
+- ☆ [模型转换笔记](https://github.com/RapidAI/RapidLatexOCR/wiki/Model-Conversion-Notes)
 
 ### TODO
 - [ ] 基于`rapid_latex_ocr`，重写GUI版本
+- [ ] 在hugging face上添加在线demo
 - [ ] 整合其他更优的模型进来
 
 ### 使用
