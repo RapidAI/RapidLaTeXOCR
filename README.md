@@ -4,7 +4,7 @@
 ## Rapid Latex OCR
 
 <p align="left">
-    <a href="https://huggingface.co/spaces/SWHL/RapidLatexOCR" target="_blank"><img src="https://img.shields.io/badge/%F0%9F%A4%97-Hugging Face Demo-blue"></a>
+    <a href="https://swhl-rapidlatexocrdemo.hf.space" target="_blank"><img src="https://img.shields.io/badge/%F0%9F%A4%97-Hugging Face Demo-blue"></a>
     <a href=""><img src="https://img.shields.io/badge/Python->=3.6,<3.12-aff.svg"></a>
     <a href=""><img src="https://img.shields.io/badge/OS-Linux%2C%20Win%2C%20Mac-pink.svg"></a>
     <a href="https://pepy.tech/project/rapid_latex_ocr"><img src="https://static.pepy.tech/personalized-badge/rapid_latex_ocr?period=total&units=abbreviation&left_color=grey&right_color=blue&left_text=Downloads"></a>
@@ -23,7 +23,7 @@
 
 ### TODO
 - [ ] Rewrite LaTeX-OCR GUI version based on `rapid_latex_ocr`
-- [ ] Add demo in the hugging face
+- [x] Add demo in the hugging face
 - [ ] Integrate other better models
 
 ### Use
