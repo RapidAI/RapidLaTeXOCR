@@ -108,6 +108,9 @@
        )
        ```
 
+### 👫 Community
+我们将[RapidLatexOCR Discussions](https://github.com/RapidAI/RapidLatexOCR/discussions) 作为社区交流平台。 所有的想法和问题都可以在这里提出和讨论。
+
 ### 更新日志
 - 2023-07-15 v0.0.1 update:
   - 首次发版

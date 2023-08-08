@@ -100,6 +100,9 @@
          # ('{\\frac{x^{2}}{a^{2}}}-{\\frac{y^{2}}{b^{2}}}=1', 0.47902780000000034)
          ```
 
+### 👫 Community
+We regard [RapidLatexOCR Discussions](https://github.com/RapidAI/RapidLatexOCR/discussions) as our community platform. All ideas and questions can be discussed here in English.
+
 ### ChangLog
 - 2023-07-15 v0.0.1 update:
    - First release
