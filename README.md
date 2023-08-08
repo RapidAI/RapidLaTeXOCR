@@ -22,6 +22,12 @@
 - Welcome all friends to actively contribute to make this tool better.
 - ☆ [Model Conversion Notes](https://github.com/RapidAI/RapidLatexOCR/wiki/Model-Conversion-Notes)
 
+### [Demo](https://swhl-rapidlatexocrdemo.hf.space)
+
+<div align="center">
+    <img src="https://github.com/RapidAI/RapidLatexOCR/releases/download/v0.0.0/demo.gif" width="100%" height="100%">
+</div>
+
 ### TODO
 - [ ] Rewrite LaTeX-OCR GUI version based on `rapid_latex_ocr`
 - [x] Add demo in the hugging face
