@@ -1,6 +1,4 @@
 
-[简体中文](https://github.com/RapidAI/RapidLatexOCR/blob/main/docs/README_zh.md) | English
-
 ## Rapid Latex OCR
 
 <p align="left">
@@ -100,10 +98,7 @@
     # ('{\\frac{x^{2}}{a^{2}}}-{\\frac{y^{2}}{b^{2}}}=1', 0.47902780000000034)
     ```
 
-### 👫 Community
-We regard [RapidLatexOCR Discussions](https://github.com/RapidAI/RapidLatexOCR/discussions) as our community platform. All ideas and questions can be discussed here in English.
-
-### ChangLog
+### Changlog
 - 2023-09-13 v0.0.4 update:
     - Merge [pr #5](https://github.com/RapidAI/RapidLatexOCR/pull/5)
 - 2023-07-15 v0.0.1 update:
