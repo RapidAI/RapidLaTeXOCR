@@ -97,8 +97,8 @@ class LoadImage:
             return self.cvt_four_to_three(img)
 
         return img
-
-        def is_image_transparent(self, img):
+    # 支持背景为透明的png图片，nparray没跑通注释了，交由后来人吧
+    def is_image_transparent(self, img):
         if img.mode == "RGBA":
             # 如果图像是四通道的，抓取alpha通道
             alpha = img.split()[3]
@@ -115,24 +115,8 @@ class LoadImage:
             return img
         else:
             return img  # 不是四通道图像，即没有透明度
-# 
-    # def is_nparray_transparent(self,img_np):
-    #     print(img_np.shape[2])
-    #     # 设置阈值
-    #     threshold = 255
-    #     # 判断数组是否含有透明像素
-    #     if np.any(img_np[..., 3] < threshold):
-    #         h, w, _ = img_np.shape
-    #         # 创建一个全白色的背景图像（所有像素的颜色值都设为255）
-    #         bg = np.ones((h, w, 4), dtype=np.uint8) * 255
-    #         # 将img_np的alpha通道的值小于阈值的像素替换为背景图像的相应像素
-    #         bg[img_np[..., 3] < 255] = img_np[img_np[..., 3] < 255]
-    #         return bg
-    #     else:
-    #         return img_np
 
     def load_img(self, img: InputType) -> np.ndarray:
-        print(type(img))
         if isinstance(img, (str, Path)):
             self.verify_exist(img)
             try:
@@ -148,7 +132,6 @@ class LoadImage:
             return img
 
         if isinstance(img, np.ndarray):
-            # return self.is_nparray_transparent(img)
             return img
 
         raise LoadImageError(f"{type(img)} is not supported!")
