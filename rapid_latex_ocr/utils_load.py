@@ -97,19 +97,37 @@ class LoadImage:
             return self.cvt_four_to_three(img)
 
         return img
+    # 支持背景为透明的png图片，nparray没跑通注释了，交由后来人吧
+    def is_image_transparent(self, img):
+        if img.mode == "RGBA":
+            # 如果图像是四通道的，抓取alpha通道
+            alpha = img.split()[3]
+            # 利用alpha通道的getextrema()函数获取图像的最小和最大alpha值
+            min_alpha = alpha.getextrema()[0]
+            # 图像即为透明，如果最小alpha值小于255(即存在alpha值为0，即透明像素)
+            # 创建一个白色背景图像
+            if min_alpha < 255:
+                bg = Image.new('RGBA', img.size, (255, 255, 255, 255))
+
+                # 合并背景图像与源图片
+                final_img = Image.alpha_composite(bg, img)
+                return final_img
+            return img
+        else:
+            return img  # 不是四通道图像，即没有透明度
 
     def load_img(self, img: InputType) -> np.ndarray:
         if isinstance(img, (str, Path)):
             self.verify_exist(img)
             try:
-                img = np.array(Image.open(img))
+                img = np.array(self.is_image_transparent(Image.open(img)))
                 img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
             except UnidentifiedImageError as e:
                 raise LoadImageError(f"cannot identify image file {img}") from e
             return img
 
         if isinstance(img, bytes):
-            img = np.array(Image.open(BytesIO(img)))
+            img = np.array(self.is_image_transparent(Image.open(BytesIO(img))))
             img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
             return img
 
