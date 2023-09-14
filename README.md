@@ -101,5 +101,6 @@
 ### Changlog
 - 2023-09-13 v0.0.4 update:
     - Merge [pr #5](https://github.com/RapidAI/RapidLatexOCR/pull/5)
+    - Optim code
 - 2023-07-15 v0.0.1 update:
     - First release

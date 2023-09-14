@@ -32,7 +32,7 @@ class OrtInferSession:
                 str(model_path), sess_options=self.sess_opt, providers=EP_list
             )
         except TypeError:
-            # 这里兼容ort 1.5.2
+            # compatible with onnxruntime 1.5.2
             self.session = InferenceSession(str(model_path), sess_options=self.sess_opt)
 
     def _init_sess_opt(self):
@@ -82,6 +82,11 @@ class ONNXRuntimeError(Exception):
 
 
 class LoadImage:
+    def __init__(
+        self,
+    ):
+        pass
+
     def __call__(self, img: InputType) -> np.ndarray:
         if not isinstance(img, InputType.__args__):
             raise LoadImageError(
@@ -89,46 +94,20 @@ class LoadImage:
             )
 
         img = self.load_img(img)
-
-        if img.ndim == 2:
-            return cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-
-        if img.ndim == 3 and img.shape[2] == 4:
-            return self.cvt_four_to_three(img)
-
+        img = self.convert_img(img)
         return img
-    # 支持背景为透明的png图片，nparray没跑通注释了，交由后来人吧
-    def is_image_transparent(self, img):
-        if img.mode == "RGBA":
-            # 如果图像是四通道的，抓取alpha通道
-            alpha = img.split()[3]
-            # 利用alpha通道的getextrema()函数获取图像的最小和最大alpha值
-            min_alpha = alpha.getextrema()[0]
-            # 图像即为透明，如果最小alpha值小于255(即存在alpha值为0，即透明像素)
-            # 创建一个白色背景图像
-            if min_alpha < 255:
-                bg = Image.new('RGBA', img.size, (255, 255, 255, 255))
-
-                # 合并背景图像与源图片
-                final_img = Image.alpha_composite(bg, img)
-                return final_img
-            return img
-        else:
-            return img  # 不是四通道图像，即没有透明度
 
     def load_img(self, img: InputType) -> np.ndarray:
         if isinstance(img, (str, Path)):
             self.verify_exist(img)
             try:
-                img = np.array(self.is_image_transparent(Image.open(img)))
-                img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+                img = np.array(Image.open(img))
             except UnidentifiedImageError as e:
                 raise LoadImageError(f"cannot identify image file {img}") from e
             return img
 
         if isinstance(img, bytes):
-            img = np.array(self.is_image_transparent(Image.open(BytesIO(img))))
-            img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+            img = np.array(Image.open(BytesIO(img)))
             return img
 
         if isinstance(img, np.ndarray):
@@ -136,9 +115,33 @@ class LoadImage:
 
         raise LoadImageError(f"{type(img)} is not supported!")
 
+    def convert_img(self, img: np.ndarray):
+        if img.ndim == 2:
+            return cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+
+        if img.ndim == 3:
+            channel = img.shape[2]
+            if channel == 1:
+                return cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+
+            if channel == 2:
+                return self.cvt_two_to_three(img)
+
+            if channel == 4:
+                return self.cvt_four_to_three(img)
+
+            if channel == 3:
+                return cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+
+            raise LoadImageError(
+                f"The channel({channel}) of the img is not in [1, 2, 3, 4]"
+            )
+
+        raise LoadImageError(f"The ndim({img.ndim}) of the img is not in [2, 3]")
+
     @staticmethod
     def cvt_four_to_three(img: np.ndarray) -> np.ndarray:
-        """RGBA → RGB"""
+        """RGBA → BGR"""
         r, g, b, a = cv2.split(img)
         new_img = cv2.merge((b, g, r))
 
@@ -146,6 +149,20 @@ class LoadImage:
         not_a = cv2.cvtColor(not_a, cv2.COLOR_GRAY2BGR)
 
         new_img = cv2.bitwise_and(new_img, new_img, mask=a)
+        new_img = cv2.add(new_img, not_a)
+        return new_img
+
+    @staticmethod
+    def cvt_two_to_three(img: np.ndarray) -> np.ndarray:
+        """gray + alpha → BGR"""
+        img_gray = img[..., 0]
+        img_bgr = cv2.cvtColor(img_gray, cv2.COLOR_GRAY2BGR)
+
+        img_alpha = img[..., 1]
+        not_a = cv2.bitwise_not(img_alpha)
+        not_a = cv2.cvtColor(not_a, cv2.COLOR_GRAY2BGR)
+
+        new_img = cv2.bitwise_and(img_bgr, img_bgr, mask=img_alpha)
         new_img = cv2.add(new_img, not_a)
         return new_img
 

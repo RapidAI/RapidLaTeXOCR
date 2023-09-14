@@ -41,7 +41,7 @@ class LatexOCR:
         if tokenizer_json is None:
             raise FileNotFoundError("tokenizer_json must not be None.")
 
-        with open(config_path, "r") as f:
+        with open(config_path, "r", encoding="utf-8") as f:
             args = yaml.load(f, Loader=yaml.FullLoader)
 
         self.max_dims = [args.get("max_width"), args.get("max_height")]
@@ -68,23 +68,27 @@ class LatexOCR:
 
         try:
             img = self.load_img(img)
-        except LoadImageError:
+        except LoadImageError as exc:
             error_info = traceback.format_exc()
             raise LoadImageError(
                 f"Load the img meets error. Error info is {error_info}"
-            )
+            ) from exc
 
         try:
             resizered_img = self.loop_image_resizer(img)
-        except Exception:
+        except Exception as e:
             error_info = traceback.format_exc()
-            raise ValueError(f"image resizer meets error. Error info is {error_info}")
+            raise ValueError(
+                f"image resizer meets error. Error info is {error_info}"
+            ) from e
 
         try:
             dec = self.encoder_decoder(resizered_img, temperature=self.temperature)
-        except Exception:
+        except Exception as e:
             error_info = traceback.format_exc()
-            raise ValueError(f"EncoderDecoder meets error. Error info is {error_info}")
+            raise ValueError(
+                f"EncoderDecoder meets error. Error info is {error_info}"
+            ) from e
 
         decode = self.tokenizer.token2str(dec)
         pred = self.post_process(decode[0])
