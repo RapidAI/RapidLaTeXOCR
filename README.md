@@ -130,4 +130,4 @@ If you want to sponsor the project, you can directly click the **Buy me a coffee
 </div>
 
 ### License
-This project is released under the [Apache 2.0 license](./LICENSE).
+This project is released under the [MIT license](./LICENSE).
