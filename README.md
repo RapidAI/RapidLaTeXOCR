@@ -1,17 +1,21 @@
+<div align="center">
+<div align="center">
+    <b><font size="8"><i>Rapid ⚡︎ Latex OCR</i></font></b>
+</div>
+<div>&nbsp;</div>
 
-## Rapid Latex OCR
+<a href="https://swhl-rapidlatexocrdemo.hf.space" target="_blank"><img src="https://img.shields.io/badge/%F0%9F%A4%97-Hugging Face Demo-blue"></a>
+<a href="https://www.modelscope.cn/studios/liekkas/RapidLatexOCRDemo/summary" target="_blank"><img src="https://img.shields.io/badge/ModelScope-Demo-blue"></a>
+<a href=""><img src="https://img.shields.io/badge/Python->=3.6,<3.12-aff.svg"></a>
+<a href=""><img src="https://img.shields.io/badge/OS-Linux%2C%20Win%2C%20Mac-pink.svg"></a>
+<a href="https://pepy.tech/project/rapid_latex_ocr"><img src="https://static.pepy.tech/personalized-badge/rapid_latex_ocr?period=total&units=abbreviation&left_color=grey&right_color=blue&left_text=Downloads"></a>
+<a href="https://pypi.org/project/rapid_latex_ocr/"><img alt="PyPI" src="https://img.shields.io/pypi/v/rapid_latex_ocr"></a>
+<a href="https://semver.org/"><img alt="SemVer2.0" src="https://img.shields.io/badge/SemVer-2.0-brightgreen"></a>
+<a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 
-<p align="left">
-    <a href="https://swhl-rapidlatexocrdemo.hf.space" target="_blank"><img src="https://img.shields.io/badge/%F0%9F%A4%97-Hugging Face Demo-blue"></a>
-    <a href="https://www.modelscope.cn/studios/liekkas/RapidLatexOCRDemo/summary" target="_blank"><img src="https://img.shields.io/badge/ModelScope-Demo-blue"></a>
-    <a href=""><img src="https://img.shields.io/badge/Python->=3.6,<3.12-aff.svg"></a>
-    <a href=""><img src="https://img.shields.io/badge/OS-Linux%2C%20Win%2C%20Mac-pink.svg"></a>
-    <a href="https://pepy.tech/project/rapid_latex_ocr"><img src="https://static.pepy.tech/personalized-badge/rapid_latex_ocr?period=total&units=abbreviation&left_color=grey&right_color=blue&left_text=Downloads"></a>
-    <a href="https://pypi.org/project/rapid_latex_ocr/"><img alt="PyPI" src="https://img.shields.io/pypi/v/rapid_latex_ocr"></a>
-    <a href="https://semver.org/"><img alt="SemVer2.0" src="https://img.shields.io/badge/SemVer-2.0-brightgreen"></a>
-    <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
-</p>
+</div>
 
+### Introduction
 
 - `rapid_latex_ocr` is a tool to convert formula images to latex format.
 - **The reasoning code in the repo is modified from [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR), the model has all been converted to ONNX format, and the reasoning code has been simplified, Inference is faster and easier to deploy.**
@@ -104,3 +108,26 @@
     - Optim code
 - 2023-07-15 v0.0.1 update:
     - First release
+
+### Code Contributors
+<p align="left">
+  <a href="https://github.com/RapidAI/RapidLatexOCR/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=RapidAI/RapidLatexOCR" width="20%"/>
+  </a>
+</p>
+
+### Contributing
+- Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
+- Please make sure to update tests as appropriate.
+
+### [Sponsor](https://swhl.github.io/RapidVideOCR/docs/sponsor/)
+
+If you want to sponsor the project, you can directly click the **Buy me a coffee** image, please write a note (e.g. your github account name) to facilitate adding to the sponsorship list below.
+
+<div align="left">
+  <a href="https://www.buymeacoffee.com/SWHL"><img src="https://raw.githubusercontent.com/RapidAI/.github/main/assets/buymeacoffe.png" width="30%" height="30%"></a>
+</div>
+
+### License
+This project is released under the [Apache 2.0 license](./LICENSE).
