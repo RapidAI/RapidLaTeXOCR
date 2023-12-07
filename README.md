@@ -36,7 +36,7 @@ If it helps you, please give a little star ⭐ or sponsor a cup of coffee (click
 ```mermaid
 flowchart LR
 
-A([⛮ Train\n LaTeX-OCR]) --> B([🔄 Convert \n ConvertLaTeXOCRToONNX]) --> C([🎨 Deploy\n RapidLaTeXOCR])
+A([Train\n LaTeX-OCR]) --> B([Convert \n ConvertLaTeXOCRToONNX]) --> C([🎨 Deploy\n RapidLaTeXOCR])
 
 click A "https://github.com/lukas-blecher/LaTeX-OCR" _blank
 click B "https://github.com/SWHL/ConvertLaTeXOCRToONNX" _blank
