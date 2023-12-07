@@ -32,6 +32,17 @@ If it helps you, please give a little star ⭐ or sponsor a cup of coffee (click
     <img src="https://github.com/RapidAI/RapidLatexOCR/releases/download/v0.0.0/demo.gif" width="100%" height="100%">
 </div>
 
+### Framework
+```mermaid
+flowchart LR
+
+A([⛮ Train\n LaTeX-OCR]) --> B([🔄 Convert \n ConvertLaTeXOCRToONNX]) --> C([🎨 Deploy\n RapidLaTeXOCR])
+
+click A "https://github.com/lukas-blecher/LaTeX-OCR" _blank
+click B "https://github.com/SWHL/ConvertLaTeXOCRToONNX" _blank
+click C "https://github.com/RapidAI/RapidLaTeXOCR" _blank
+```
+
 ### TODO
 - [ ] Rewrite LaTeX-OCR GUI version based on `rapid_latex_ocr`
 - [x] Add demo in the hugging face
