@@ -16,13 +16,17 @@
 </div>
 
 ### Introduction
+`rapid_latex_ocr` is a tool to convert formula images to latex format.
 
-- `rapid_latex_ocr` is a tool to convert formula images to latex format.
-- **The reasoning code in the repo is modified from [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR), the model has all been converted to ONNX format, and the reasoning code has been simplified, Inference is faster and easier to deploy.**
-- The repo only has codes based on `ONNXRuntime` or `OpenVINO` inference in onnx format, and does not contain training model codes. If you want to train your own model, please move to [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR).
-- If it helps you, please give a little star ⭐ or sponsor a cup of coffee (click the link in Sponsor at the top of the page)
-- Welcome all friends to actively contribute to make this tool better.
-- ☆ [Model Conversion Notes](https://github.com/RapidAI/RapidLatexOCR/wiki/Model-Conversion-Notes)
+**The reasoning code in the repo is modified from [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR), the model has all been converted to ONNX format, and the reasoning code has been simplified, Inference is faster and easier to deploy.**
+
+The repo only has codes based on `ONNXRuntime` or `OpenVINO` inference in onnx format, and does not contain training model codes. If you want to train your own model, please move to [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR).
+
+If it helps you, please give a little star ⭐ or sponsor a cup of coffee (click the link in Sponsor at the top of the page)
+
+Welcome all friends to actively contribute to make this tool better.
+
+🔥🔥🔥 Model Conversion Notes 👉 [ConvertLaTeXOCRToONNX](https://github.com/SWHL/ConvertLaTeXOCRToONNX)
 
 ### [Demo](https://swhl-rapidlatexocrdemo.hf.space)
 
@@ -103,11 +107,12 @@
     ```
 
 ### Changlog
-- 2023-09-13 v0.0.4 update:
-    - Merge [pr #5](https://github.com/RapidAI/RapidLatexOCR/pull/5)
-    - Optim code
-- 2023-07-15 v0.0.1 update:
-    - First release
+2023-09-13 v0.0.4 update:
+- Merge [pr #5](https://github.com/RapidAI/RapidLatexOCR/pull/5)
+- Optim code
+
+2023-07-15 v0.0.1 update:
+- First release
 
 ### Code Contributors
 <p align="left">
