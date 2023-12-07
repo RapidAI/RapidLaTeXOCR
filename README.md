@@ -24,8 +24,6 @@ The repo only has codes based on `ONNXRuntime` or `OpenVINO` inference in onnx f
 
 If it helps you, please give a little star ⭐ or sponsor a cup of coffee (click the link in Sponsor at the top of the page)
 
-Welcome all friends to actively contribute to make this tool better.
-
 🔥🔥🔥 Model Conversion Notes 👉 [ConvertLaTeXOCRToONNX](https://github.com/SWHL/ConvertLaTeXOCRToONNX)
 
 ### [Demo](https://swhl-rapidlatexocrdemo.hf.space)
