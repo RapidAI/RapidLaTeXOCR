@@ -2,13 +2,16 @@
 # @Author: SWHL
 # @Contact: liekkaskono@163.com
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 import cv2
 import numpy as np
 from PIL import Image
 from tokenizers import Tokenizer
 from tokenizers.models import BPE
+import requests
+import tqdm
+import io
 
 
 class PreProcess:
@@ -124,3 +127,49 @@ class TokenizerCls:
             .strip()
             for detok in dec
         ]
+
+
+class DownloadModel:
+    """Modified from https://github.com/lukas-blecher/LaTeX-OCR/blob/1781514fb8c92ea9f94057295fdae0e683f4648e/pix2tex/model/checkpoints/get_latest_checkpoint.py"""
+
+    def __init__(self) -> None:
+        self.url = "https://github.com/RapidAI/RapidLaTeXOCR/releases/download/v0.0.0"
+        self.cur_dir = Path(__file__).resolve().parent
+
+    def __call__(self, file_name: str) -> bool:
+        save_dir = self.cur_dir / "models"
+        save_dir.mkdir(parents=True, exist_ok=True)
+
+        full_path = f"{self.url}/{file_name}"
+        print(f"Download {full_path} to {self.cur_dir}/models")
+
+        try:
+            file = self.download_as_bytes_with_progress(full_path, file_name)
+            save_file_path = save_dir / file_name
+            self.save_file(save_file_path, file)
+        except Exception:
+            return False
+        return True
+
+    @staticmethod
+    def download_as_bytes_with_progress(url: str, name: Optional[str] = None) -> bytes:
+        resp = requests.get(url, stream=True, allow_redirects=True)
+        total = int(resp.headers.get("content-length", 0))
+        bio = io.BytesIO()
+        with tqdm.tqdm(
+            desc=name, total=total, unit="b", unit_scale=True, unit_divisor=1024
+        ) as bar:
+            for chunk in resp.iter_content(chunk_size=65536):
+                bar.update(len(chunk))
+                bio.write(chunk)
+        return bio.getvalue()
+
+    @staticmethod
+    def save_file(save_path: Union[str, Path], file: bytes):
+        with open(save_path, "wb") as f:
+            f.write(file)
+
+
+if __name__ == "__main__":
+    downloader = DownloadModel()
+    downloader("decoder.onnx")

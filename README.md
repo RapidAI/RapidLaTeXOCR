@@ -41,72 +41,42 @@ Welcome all friends to actively contribute to make this tool better.
 - [ ] Add support for OpenVINO
 
 ### Installation
-1. pip install `rapid_latext_ocr` library. Because packaging the model into the whl package exceeds the pypi limit (100M), the model needs to be downloaded separately.
-    ```bash
-    pip install rapid_latex_ocr
-    ```
-2. Download the model ([Google Drive](https://drive.google.com/drive/folders/1e8BgLk1cPQDSZjgoLgloFYMAQWLTaroQ?usp=sharing) | [Baidu NetDisk](https://pan.baidu.com/s/1rnYmmKp2HhOkYVFehUiMNg?pwd=dh72)), when initializing, just specify the model path, see the next part for details.
+> NOTE: When installing the package through pip, the model file will be automatically downloaded and placed under models in the installation directory.
+>
+> If the Internet speed is slow, you can download it separately through [Google Drive](https://drive.google.com/drive/folders/1e8BgLk1cPQDSZjgoLgloFYMAQWLTaroQ?usp=sharing) | [Baidu NetDisk](https://pan.baidu.com/s/1rnYmmKp2HhOkYVFehUiMNg?pwd=dh72).
 
-    |model name|size|
-    |---:|:---:|
-    |`image_resizer.onnx`|37.1M|
-    |`encoder.onnx`|84.8M|
-    |`decoder.onnx`|48.5M|
-
+```bash
+pip install rapid_latex_ocr
+```
 
 ### Usage
-- Used by python script:
-    ```python
-    from rapid_latex_ocr import LatexOCR
+#### Used by python script:
+```python
+from rapid_latex_ocr import LatexOCR
 
-    image_resizer_path = 'models/image_resizer.onnx'
-    encoder_path = 'models/encoder.onnx'
-    decoder_path = 'models/decoder.onnx'
-    tokenizer_json = 'models/tokenizer.json'
-    model = LatexOCR(image_resizer_path=image_resizer_path,
-                    encoder_path=encoder_path,
-                    decoder_path=decoder_path,
-                    tokenizer_json=tokenizer_json)
+model = LatexOCR()
 
-    img_path = "tests/test_files/6.png"
-    with open(img_path, "rb") as f:
-        data = f. read()
+img_path = "tests/test_files/6.png"
+with open(img_path, "rb") as f:
+    data = f.read()
 
-    result, elapse = model(data)
+res, elapse = model(data)
 
-    print(result)
-    # {\frac{x^{2}}{a^{2}}}-{\frac{y^{2}}{b^{2}}}=1
+print(res)
+print(elapse)
+```
+#### Used by command line.
+```bash
+$ rapid_latex_ocr tests/test_files/6.png
 
-    print(elapse)
-    # 0.4131628000000003
-    ```
-- Used by command line.
-    ```bash
-    $ rapid_latex_ocr -h
-    usage: rapid_latex_ocr [-h] [-img_resizer IMAGE_RESIZER_PATH]
-                        [-encdoer ENCODER_PATH] [-decoder DECODER_PATH]
-                        [-tokenizer TOKENIZER_JSON]
-                        img_path
-
-    positional arguments:
-    img_path Only img path of the formula.
-
-    optional arguments:
-    -h, --help show this help message and exit
-    -img_resizer IMAGE_RESIZER_PATH, --image_resizer_path IMAGE_RESIZER_PATH
-    -encdoer ENCODER_PATH, --encoder_path ENCODER_PATH
-    -decoder DECODER_PATH, --decoder_path DECODER_PATH
-    -tokenizer TOKENIZER_JSON, --tokenizer_json TOKENIZER_JSON
-
-    $ rapid_latex_ocr tests/test_files/6.png \
-        -img_resizer models/image_resizer.onnx \
-        -encoder models/encoder.onnx \
-        -dedocer models/decoder.onnx \
-        -tokenizer models/tokenizer.json
-    # ('{\\frac{x^{2}}{a^{2}}}-{\\frac{y^{2}}{b^{2}}}=1', 0.47902780000000034)
-    ```
+# {\\frac{x^{2}}{a^{2}}}-{\\frac{y^{2}}{b^{2}}}=1
+# 0.47902780000000034
+```
 
 ### Changlog
+2023-12-07 v0.0.5 update:
+- Add the relevant code to automatically download the model when installing the package
+
 2023-09-13 v0.0.4 update:
 - Merge [pr #5](https://github.com/RapidAI/RapidLatexOCR/pull/5)
 - Optim code
@@ -122,9 +92,9 @@ Welcome all friends to actively contribute to make this tool better.
 </p>
 
 ### Contributing
-- Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
-- Please make sure to update tests as appropriate.
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
 
 ### [Sponsor](https://swhl.github.io/RapidVideOCR/docs/sponsor/)
 

@@ -2,15 +2,14 @@ name: Push rapid_latex_ocr to pypi
 
 on:
   push:
-    branches: [ main ]
-    paths:
-      - 'rapid_latex_ocr/**'
-      - 'docs/doc_whl.md'
-      - 'setup.py'
-      - '.github/workflows/gen_whl_to_pypi.yml'
-
-env:
-  RESOURCES_URL: https://github.com/RapidAI/RapidLatexOCR/releases/download/v0.0.0/models.zip
+    # branches: [ main ]
+    # paths:
+    #   - 'rapid_latex_ocr/**'
+    #   - 'docs/doc_whl.md'
+    #   - 'setup.py'
+    #   - '.github/workflows/gen_whl_to_pypi.yml'
+    tags:
+      - v*
 
 jobs:
   UnitTesting:
@@ -27,13 +26,6 @@ jobs:
 
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
-
-      - name: Download models
-        run: |
-          wget $RESOURCES_URL
-          ZIP_NAME=${RESOURCES_URL##*/}
-          DIR_NAME=${ZIP_NAME%.*}
-          unzip $ZIP_NAME
 
       - name: Unit testings with rapid_latex_ocr
         run: |

@@ -13,7 +13,7 @@ import yaml
 from PIL import Image
 
 from .models import EncoderDecoder
-from .utils import PreProcess, TokenizerCls
+from .utils import PreProcess, TokenizerCls, DownloadModel
 from .utils_load import InputType, LoadImage, LoadImageError, OrtInferSession
 
 cur_dir = Path(__file__).resolve().parent
@@ -29,39 +29,62 @@ class LatexOCR:
         decoder_path: Union[str, Path] = None,
         tokenizer_json: Union[str, Path] = None,
     ):
-        if image_resizer_path is None:
-            raise FileNotFoundError("image_resizer_path must not be None.")
+        self.image_resizer_path = image_resizer_path
+        self.encoder_path = encoder_path
+        self.decoder_path = decoder_path
+        self.tokenizer_json = tokenizer_json
 
-        if encoder_path is None:
-            raise FileNotFoundError("encoder_path must not be None.")
-
-        if decoder_path is None:
-            raise FileNotFoundError("decoder_path must not be None.")
-
-        if tokenizer_json is None:
-            raise FileNotFoundError("tokenizer_json must not be None.")
+        self.get_model_path()
 
         with open(config_path, "r", encoding="utf-8") as f:
             args = yaml.load(f, Loader=yaml.FullLoader)
 
         self.max_dims = [args.get("max_width"), args.get("max_height")]
         self.min_dims = [args.get("min_width", 32), args.get("min_height", 32)]
-        self.temperature = args.get("temperature", 0.25)
+        self.temperature = args.get("temperature", 0.00001)
 
         self.load_img = LoadImage()
 
         self.pre_pro = PreProcess(max_dims=self.max_dims, min_dims=self.min_dims)
 
-        self.image_resizer = OrtInferSession(image_resizer_path)
+        self.image_resizer = OrtInferSession(self.image_resizer_path)
 
         self.encoder_decoder = EncoderDecoder(
-            encoder_path=encoder_path,
-            decoder_path=decoder_path,
+            encoder_path=self.encoder_path,
+            decoder_path=self.decoder_path,
             bos_token=args["bos_token"],
             eos_token=args["eos_token"],
             max_seq_len=args["max_seq_len"],
         )
-        self.tokenizer = TokenizerCls(tokenizer_json)
+        self.tokenizer = TokenizerCls(self.tokenizer_json)
+
+    def get_model_path(
+        self,
+    ) -> Tuple[str]:
+        def try_download(file_name):
+            if downloader(file_name):
+                return default_model_dir / file_name
+            raise FileNotFoundError(f"{file_name} must not be None.")
+
+        downloader = DownloadModel()
+        decoder_name = "decoder.onnx"
+        encoder_name = "encoder.onnx"
+        resizer_name = "image_resizer.onnx"
+        tokenizer_name = "tokenizer.json"
+
+        default_model_dir = cur_dir / "models"
+
+        if self.image_resizer_path is None:
+            self.image_resizer_path = try_download(resizer_name)
+
+        if self.encoder_path is None:
+            self.encoder_path = try_download(encoder_name)
+
+        if self.decoder_path is None:
+            self.decoder_path = try_download(decoder_name)
+
+        if self.tokenizer_json is None:
+            self.tokenizer_json = try_download(tokenizer_name)
 
     def __call__(self, img: InputType) -> Tuple[str, float]:
         s = time.perf_counter()
@@ -174,8 +197,9 @@ def main():
         tokenizer_json=args.tokenizer_json,
     )
 
-    result = engine(args.img_path)
+    result, elapse = engine(args.img_path)
     print(result)
+    print(f"cost: {elapse:.5f}")
 
 
 if __name__ == "__main__":

@@ -5,4 +5,4 @@ min_width: 32
 bos_token: 1
 max_seq_len: 512
 eos_token: 2
-temperature: 0.2
+temperature: 0.00001
