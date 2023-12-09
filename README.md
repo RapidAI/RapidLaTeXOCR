@@ -36,16 +36,17 @@ If it helps you, please give a little star ⭐ or sponsor a cup of coffee (click
 ```mermaid
 flowchart LR
 
-A([Train\n LaTeX-OCR]) --> B([Convert \n ConvertLaTeXOCRToONNX]) --> C([Deploy\n RapidLaTeXOCR])
+A(Preprocess Formula\n ProcessLaTeXFormulaTools) --> B(Train\n LaTeX-OCR) --> C(Convert \n ConvertLaTeXOCRToONNX) --> D(Deploy\n RapidLaTeXOCR)
 
-click A "https://github.com/lukas-blecher/LaTeX-OCR" _blank
-click B "https://github.com/SWHL/ConvertLaTeXOCRToONNX" _blank
-click C "https://github.com/RapidAI/RapidLaTeXOCR" _blank
+click A "https://github.com/SWHL/ProcessLaTeXFormulaTools" _blank
+click B "https://github.com/lukas-blecher/LaTeX-OCR" _blank
+click C "https://github.com/SWHL/ConvertLaTeXOCRToONNX" _blank
+click D "https://github.com/RapidAI/RapidLaTeXOCR" _blank
 ```
 
 ### TODO
-- [ ] Rewrite LaTeX-OCR GUI version based on `rapid_latex_ocr`
 - [x] Add demo in the hugging face
+- [ ] Rewrite LaTeX-OCR GUI version based on `rapid_latex_ocr`
 - [ ] Integrate other better models
 - [ ] Add support for OpenVINO
 
@@ -59,7 +60,7 @@ pip install rapid_latex_ocr
 ```
 
 ### Usage
-#### Used by python script:
+#### Used by python script
 ```python
 from rapid_latex_ocr import LatexOCR
 
@@ -74,7 +75,7 @@ res, elapse = model(data)
 print(res)
 print(elapse)
 ```
-#### Used by command line.
+#### Used by command line
 ```bash
 $ rapid_latex_ocr tests/test_files/6.png
 
