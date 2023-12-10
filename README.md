@@ -48,7 +48,6 @@ click D "https://github.com/RapidAI/RapidLaTeXOCR" _blank
 - [x] Add demo in the hugging face
 - [ ] Rewrite LaTeX-OCR GUI version based on `rapid_latex_ocr`
 - [ ] Integrate other better models
-- [ ] Add support for OpenVINO
 
 ### Installation
 > NOTE: When installing the package through pip, the model file will be automatically downloaded and placed under models in the installation directory.
