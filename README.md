@@ -84,18 +84,24 @@ $ rapid_latex_ocr tests/test_files/6.png
 ```
 
 ### Changlog
-2023-12-10 v0.0.6 update:
-- Fixed issue #12
 
-2023-12-07 v0.0.5 update:
+<details>
+<summary>Click to expand</summary>
+
+#### 2023-12-10 v0.0.6 update:
+- Fixed issue [#12](https://github.com/RapidAI/RapidLaTeXOCR/issues/12)
+
+#### 2023-12-07 v0.0.5 update:
 - Add the relevant code to automatically download the model when installing the package
 
-2023-09-13 v0.0.4 update:
+#### 2023-09-13 v0.0.4 update:
 - Merge [pr #5](https://github.com/RapidAI/RapidLatexOCR/pull/5)
 - Optim code
 
-2023-07-15 v0.0.1 update:
+#### 2023-07-15 v0.0.1 update:
 - First release
+
+</details>
 
 ### Code Contributors
 <p align="left">
