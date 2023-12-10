@@ -62,8 +62,9 @@ class LatexOCR:
         self,
     ) -> Tuple[str]:
         def try_download(file_name):
-            if downloader(file_name):
-                return default_model_dir / file_name
+            save_path = default_model_dir / file_name
+            if save_path.exists() or downloader(file_name):
+                return save_path
             raise FileNotFoundError(f"{file_name} must not be None.")
 
         downloader = DownloadModel()
