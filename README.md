@@ -1,6 +1,6 @@
 <div align="center">
 <div align="center">
-   <h1><b><i>Rapid ⚡︎ LaTeX OCR</i></b></h1>
+   <h1><b>Rapid ⚡︎ LaTeX OCR</b></h1>
 </div>
 <div>&nbsp;</div>
 
