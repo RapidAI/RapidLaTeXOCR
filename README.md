@@ -24,9 +24,9 @@ The repo only has codes based on `ONNXRuntime` or `OpenVINO` inference in onnx f
 
 If it helps you, please give a little star ⭐ or sponsor a cup of coffee (click the link in Sponsor at the top of the page)
 
-🔥🔥🔥 Model Conversion Notes 👉 [ConvertLaTeXOCRToONNX](https://github.com/SWHL/ConvertLaTeXOCRToONNX)
+🔥 Model Conversion Notes 👉 [ConvertLaTeXOCRToONNX](https://github.com/SWHL/ConvertLaTeXOCRToONNX)
 
-### [Demo](https://swhl-rapidlatexocrdemo.hf.space)
+### [Online Demo](https://swhl-rapidlatexocrdemo.hf.space)
 
 <div align="center">
     <img src="https://github.com/RapidAI/RapidLatexOCR/releases/download/v0.0.0/demo.gif" width="100%" height="100%">
@@ -44,15 +44,11 @@ click C "https://github.com/SWHL/ConvertLaTeXOCRToONNX" _blank
 click D "https://github.com/RapidAI/RapidLaTeXOCR" _blank
 ```
 
-### TODO
-- [x] Add demo in the hugging face
-- [ ] Rewrite LaTeX-OCR GUI version based on `rapid_latex_ocr`
-- [ ] Integrate other better models
-
 ### Installation
-> NOTE: When installing the package through pip, the model file will be automatically downloaded and placed under models in the installation directory.
+> [!NOTE]
+> When installing the package through pip, the model file will be automatically downloaded and placed under models in the installation directory.
 >
-> If the Internet speed is slow, you can download it separately through [Google Drive](https://drive.google.com/drive/folders/1e8BgLk1cPQDSZjgoLgloFYMAQWLTaroQ?usp=sharing) | [Baidu NetDisk](https://pan.baidu.com/s/1rnYmmKp2HhOkYVFehUiMNg?pwd=dh72).
+> If the Internet speed is slow, you can download it separately through [Google Drive](https://drive.google.com/drive/folders/1e8BgLk1cPQDSZjgoLgloFYMAQWLTaroQ?usp=sharing) or [Baidu NetDisk](https://pan.baidu.com/s/1rnYmmKp2HhOkYVFehUiMNg?pwd=dh72).
 
 ```bash
 pip install rapid_latex_ocr
