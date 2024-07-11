@@ -6,7 +6,7 @@
 
 <a href="https://huggingface.co/spaces/SWHL/RapidLaTeXOCRDemo" target="_blank"><img src="https://img.shields.io/badge/%F0%9F%A4%97 Hugging Face-Demo-blue"></a>
 <a href="https://aistudio.baidu.com/application/detail/23590" target="_blank"><img src="https://img.shields.io/badge/Paddle AI Studio-Demo-blue"></a>
-<a href=""><img src="https://img.shields.io/badge/Python->=3.6,<3.12-aff.svg"></a>
+<a href=""><img src="https://img.shields.io/badge/Python->=3.6,<3.13-aff.svg"></a>
 <a href=""><img src="https://img.shields.io/badge/OS-Linux%2C%20Win%2C%20Mac-pink.svg"></a>
 <a href="https://pepy.tech/project/rapid_latex_ocr"><img src="https://static.pepy.tech/personalized-badge/rapid_latex_ocr?period=total&units=abbreviation&left_color=grey&right_color=blue&left_text=Downloads"></a>
 <a href="https://pypi.org/project/rapid_latex_ocr/"><img alt="PyPI" src="https://img.shields.io/pypi/v/rapid_latex_ocr"></a>
@@ -16,6 +16,7 @@
 </div>
 
 ### Introduction
+
 `rapid_latex_ocr` is a tool to convert formula images to latex format.
 
 **The reasoning code in the repo is modified from [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR), the model has all been converted to ONNX format, and the reasoning code has been simplified, Inference is faster and easier to deploy.**
@@ -33,6 +34,7 @@ If it helps you, please give a little star ⭐ or sponsor a cup of coffee (click
 </div>
 
 ### Framework
+
 ```mermaid
 flowchart LR
 
@@ -45,6 +47,7 @@ click D "https://github.com/RapidAI/RapidLaTeXOCR" _blank
 ```
 
 ### Installation
+>
 > [!NOTE]
 > When installing the package through pip, the model file will be automatically downloaded and placed under models in the installation directory.
 >
@@ -55,7 +58,9 @@ pip install rapid_latex_ocr
 ```
 
 ### Usage
+
 #### Used by python script
+
 ```python
 from rapid_latex_ocr import LatexOCR
 
@@ -70,7 +75,9 @@ res, elapse = model(data)
 print(res)
 print(elapse)
 ```
+
 #### Used by command line
+
 ```bash
 $ rapid_latex_ocr tests/test_files/6.png
 
@@ -78,27 +85,32 @@ $ rapid_latex_ocr tests/test_files/6.png
 # 0.47902780000000034
 ```
 
-### Changlog
+### Changlog ([more](https://github.com/RapidAI/RapidLaTeXOCR/releases))
 
 <details>
 <summary>Click to expand</summary>
 
-#### 2023-12-10 v0.0.6 update:
+#### 2023-12-10 v0.0.6 update
+
 - Fixed issue [#12](https://github.com/RapidAI/RapidLaTeXOCR/issues/12)
 
-#### 2023-12-07 v0.0.5 update:
+#### 2023-12-07 v0.0.5 update
+
 - Add the relevant code to automatically download the model when installing the package
 
-#### 2023-09-13 v0.0.4 update:
+#### 2023-09-13 v0.0.4 update
+
 - Merge [pr #5](https://github.com/RapidAI/RapidLatexOCR/pull/5)
 - Optim code
 
-#### 2023-07-15 v0.0.1 update:
+#### 2023-07-15 v0.0.1 update
+
 - First release
 
 </details>
 
 ### Code Contributors
+
 <p align="left">
   <a href="https://github.com/RapidAI/RapidLatexOCR/graphs/contributors">
     <img src="https://contrib.rocks/image?repo=RapidAI/RapidLatexOCR" width="20%"/>
@@ -106,6 +118,7 @@ $ rapid_latex_ocr tests/test_files/6.png
 </p>
 
 ### Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
@@ -119,4 +132,5 @@ If you want to sponsor the project, you can directly click the **Buy me a coffee
 </div>
 
 ### License
+
 This project is released under the [MIT license](./LICENSE).

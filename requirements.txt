@@ -1,6 +1,6 @@
 onnxruntime
 tokenizers>=0.13.2
-numpy
+numpy<2.0.0
 opencv-python
 Pillow>=9.2.0
 PyYAML
