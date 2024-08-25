@@ -75,7 +75,7 @@ class PreProcess:
             ratios = [a / b for a, b in zip(img.size, self.max_dims)]
             if any([r > 1 for r in ratios]):
                 size = np.array(img.size) // max(ratios)
-                img = img.resize(size.astype(int), Image.BILINEAR)
+                img = img.resize(tuple(size.astype(int)), Image.BILINEAR)
 
         if self.min_dims is not None:
             padded_size: List[Union[int, int]] = [
