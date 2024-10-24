@@ -75,6 +75,7 @@ class PreProcess:
             ratios = [a / b for a, b in zip(img.size, self.max_dims)]
             if any([r > 1 for r in ratios]):
                 size = np.array(img.size) // max(ratios)
+                size = np.maximum(size, 1)
                 img = img.resize(tuple(size.astype(int)), Image.BILINEAR)
 
         if self.min_dims is not None:
