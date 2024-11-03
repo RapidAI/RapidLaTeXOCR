@@ -2,12 +2,6 @@ name: Push rapid_latex_ocr to pypi
 
 on:
   push:
-    # branches: [ main ]
-    # paths:
-    #   - 'rapid_latex_ocr/**'
-    #   - 'docs/doc_whl.md'
-    #   - 'setup.py'
-    #   - '.github/workflows/gen_whl_to_pypi.yml'
     tags:
       - v*
 
@@ -51,14 +45,7 @@ jobs:
           pip install -r requirements.txt
           python -m pip install --upgrade pip
           pip install wheel get_pypi_latest_version
-          python setup.py bdist_wheel ${{ github.ref_name }}
-
-      # - name: Publish distribution 📦 to Test PyPI
-      #   uses: pypa/gh-action-pypi-publish@v1.5.0
-      #   with:
-      #     password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-      #     repository_url: https://test.pypi.org/legacy/
-      #     packages_dir:  dist/
+          python setup.py bdist_wheel "${{ github.ref_name }}"
 
       - name: Publish distribution 📦 to PyPI
         uses: pypa/gh-action-pypi-publish@v1.5.0

@@ -62,9 +62,9 @@ pip install rapid_latex_ocr
 #### Used by python script
 
 ```python
-from rapid_latex_ocr import LatexOCR
+from rapid_latex_ocr import LaTeXOCR
 
-model = LatexOCR()
+model = LaTeXOCR()
 
 img_path = "tests/test_files/6.png"
 with open(img_path, "rb") as f:
@@ -89,6 +89,11 @@ $ rapid_latex_ocr tests/test_files/6.png
 
 <details>
 <summary>Click to expand</summary>
+
+#### 2024-11-03 v0.0.9 update
+
+- 修复读取配置文件编码问题
+- 引入`dataclasses`类，简化参数传递
 
 #### 2023-12-10 v0.0.6 update
 

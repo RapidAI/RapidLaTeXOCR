@@ -1,17 +1,18 @@
 # -*- encoding: utf-8 -*-
 # @Author: SWHL
 # @Contact: liekkaskono@163.com
+import io
 from pathlib import Path
-from typing import List, Union, Optional
+from typing import List, Optional, Union
 
+import chardet
 import cv2
 import numpy as np
+import requests
+import tqdm
 from PIL import Image
 from tokenizers import Tokenizer
 from tokenizers.models import BPE
-import requests
-import tqdm
-import io
 
 
 class PreProcess:
@@ -169,6 +170,17 @@ class DownloadModel:
     def save_file(save_path: Union[str, Path], file: bytes):
         with open(save_path, "wb") as f:
             f.write(file)
+
+
+def get_file_encode(file_path: Union[str, Path]) -> str:
+    try:
+        with open(file_path, "rb") as f:
+            raw_data = f.read(100)
+            result = chardet.detect(raw_data)
+            encoding = result["encoding"]
+        return encoding
+    except Exception:
+        return "utf-8"
 
 
 if __name__ == "__main__":

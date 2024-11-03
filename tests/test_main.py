@@ -10,9 +10,9 @@ root_dir = cur_dir.parent
 sys.path.append(str(root_dir))
 import pytest
 
-from rapid_latex_ocr import LatexOCR
+from rapid_latex_ocr import LaTeXOCR
 
-model = LatexOCR()
+model = LaTeXOCR()
 
 img_dir = cur_dir / "test_files"
 

@@ -5,6 +5,7 @@ import argparse
 import re
 import time
 import traceback
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Tuple, Union
 
@@ -13,14 +14,26 @@ import yaml
 from PIL import Image
 
 from .models import EncoderDecoder
-from .utils import PreProcess, TokenizerCls, DownloadModel
+from .utils import DownloadModel, PreProcess, TokenizerCls, get_file_encode
 from .utils_load import InputType, LoadImage, LoadImageError, OrtInferSession
 
 cur_dir = Path(__file__).resolve().parent
 DEFAULT_CONFIG = cur_dir / "config.yaml"
 
 
-class LatexOCR:
+@dataclass
+class LaTeXOCRInput:
+    max_width: int = 672
+    max_height: int = 192
+    min_height: int = 32
+    min_width: int = 32
+    bos_token: int = 1
+    max_seq_len: int = 512
+    eos_token: int = 2
+    temperature: float = 0.00001
+
+
+class LaTeXOCR:
     def __init__(
         self,
         config_path: Union[str, Path] = DEFAULT_CONFIG,
@@ -36,12 +49,14 @@ class LatexOCR:
 
         self.get_model_path()
 
-        with open(config_path, "r", encoding="utf-8") as f:
+        file_encode = get_file_encode(config_path)
+        with open(config_path, "r", encoding=file_encode) as f:
             args = yaml.load(f, Loader=yaml.FullLoader)
+        input_params = LaTeXOCRInput(**args)
 
-        self.max_dims = [args.get("max_width"), args.get("max_height")]
-        self.min_dims = [args.get("min_width", 32), args.get("min_height", 32)]
-        self.temperature = args.get("temperature", 0.00001)
+        self.max_dims = [input_params.max_width, input_params.max_height]
+        self.min_dims = [input_params.min_width, input_params.min_height]
+        self.temperature = input_params.temperature
 
         self.load_img = LoadImage()
 
@@ -52,9 +67,9 @@ class LatexOCR:
         self.encoder_decoder = EncoderDecoder(
             encoder_path=self.encoder_path,
             decoder_path=self.decoder_path,
-            bos_token=args["bos_token"],
-            eos_token=args["eos_token"],
-            max_seq_len=args["max_seq_len"],
+            bos_token=input_params.bos_token,
+            eos_token=input_params.eos_token,
+            max_seq_len=input_params.max_seq_len,
         )
         self.tokenizer = TokenizerCls(self.tokenizer_json)
 
@@ -191,7 +206,7 @@ def main():
     parser.add_argument("img_path", type=str, help="Only img path of the formula.")
     args = parser.parse_args()
 
-    engine = LatexOCR(
+    engine = LaTeXOCR(
         image_resizer_path=args.image_resizer_path,
         encoder_path=args.encoder_path,
         decoder_path=args.decoder_path,
